@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +31,7 @@ public class ExpenseController {
     @PostMapping
     @ResponseBody
     public Expense createExpense(@RequestBody Expense expense) {
-        return expenseRepository.save(expense);
+        return expenseRepository.insert(expense);
     }
 
     @GetMapping("/all")
@@ -64,4 +65,11 @@ public class ExpenseController {
                 .orElseThrow(() -> new ExpenseNotFoundException());
     }
 
+    @PutMapping("/{id}")
+    @ResponseBody
+    public Expense updateExpense(@PathVariable String id, @RequestBody Expense newExpense) {
+        expenseRepository.findById(id).orElseThrow(() -> new ExpenseNotFoundException());
+        newExpense.setId(id);
+        return expenseRepository.save(newExpense);
+    }
 }
