@@ -1,3 +1,3 @@
 # Getting Started
 
-Deploy to GCP with: `gcloud app deploy`
+Deploy to GCP with: `gcloud app deploy --quiet`
