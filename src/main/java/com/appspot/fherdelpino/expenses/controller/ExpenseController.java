@@ -38,8 +38,8 @@ public class ExpenseController {
 
     @GetMapping("/all")
     @ResponseBody
-    public List<Expense> getAll(@RequestParam(required = false) Optional<String> sortedBy) {
-        return sortedBy
+    public List<Expense> getAll(@RequestParam(required = false) Optional<String> sortBy) {
+        return sortBy
                 .map(Sort::by)
                 .map(sortByField -> expenseRepository.findAll(sortByField))
                 .orElse(expenseRepository.findAll());
