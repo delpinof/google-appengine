@@ -4,6 +4,7 @@ import com.appspot.fherdelpino.error.ExpenseNotFoundException;
 import com.appspot.fherdelpino.expenses.model.Expense;
 import com.appspot.fherdelpino.expenses.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -36,8 +38,11 @@ public class ExpenseController {
 
     @GetMapping("/all")
     @ResponseBody
-    public List<Expense> getAll() {
-        return expenseRepository.findAll();
+    public List<Expense> getAll(@RequestParam(required = false) Optional<String> sortedBy) {
+        return sortedBy
+                .map(Sort::by)
+                .map(sortByField -> expenseRepository.findAll(sortByField))
+                .orElse(expenseRepository.findAll());
     }
 
     @GetMapping
@@ -68,8 +73,12 @@ public class ExpenseController {
     @PutMapping("/{id}")
     @ResponseBody
     public Expense updateExpense(@PathVariable String id, @RequestBody Expense newExpense) {
-        expenseRepository.findById(id).orElseThrow(() -> new ExpenseNotFoundException());
-        newExpense.setId(id);
-        return expenseRepository.save(newExpense);
+        return expenseRepository.findById(id)
+                .map(oldExpense -> {
+                    newExpense.setId(oldExpense.getId());
+                    return newExpense;
+                })
+                .map(expense -> expenseRepository.save(expense))
+                .orElseThrow(ExpenseNotFoundException::new);
     }
 }
