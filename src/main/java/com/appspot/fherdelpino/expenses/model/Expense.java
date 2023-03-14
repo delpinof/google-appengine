@@ -11,9 +11,9 @@ import java.time.LocalDate;
 public class Expense {
 
     @Id
-    String id;
-    String name;
-    Double amount;
-    LocalDate date;
-    String description;
+    private String id;
+    private String name;
+    private Double amount;
+    private LocalDate date;
+    private String description;
 }
