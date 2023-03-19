@@ -2,6 +2,7 @@ package com.appspot.fherdelpino.expenses.service;
 
 import com.appspot.fherdelpino.expenses.model.WeekCalendar;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.WeekFields;
 
 @Slf4j
+@Service
 public class WeekCalendarService {
 
     private final WeekFields broadcastCalendar;
