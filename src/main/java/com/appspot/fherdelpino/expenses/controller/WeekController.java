@@ -3,6 +3,7 @@ package com.appspot.fherdelpino.expenses.controller;
 import com.appspot.fherdelpino.expenses.model.WeekCalendar;
 import com.appspot.fherdelpino.expenses.service.WeekCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static java.util.Objects.nonNull;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/expense/week")
 public class WeekController {
