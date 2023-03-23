@@ -1,4 +1,4 @@
-package com.appspot.fherdelpino.error;
+package com.appspot.fherdelpino.expenses.error;
 
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,6 @@
 package com.appspot.fherdelpino.expenses.controller;
 
-import com.appspot.fherdelpino.error.ExpenseNotFoundException;
+import com.appspot.fherdelpino.expenses.error.ExpenseNotFoundException;
 import com.appspot.fherdelpino.expenses.model.Expense;
 import com.appspot.fherdelpino.expenses.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
