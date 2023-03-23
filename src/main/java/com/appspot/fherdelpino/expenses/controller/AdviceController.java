@@ -1,6 +1,6 @@
 package com.appspot.fherdelpino.expenses.controller;
 
-import com.appspot.fherdelpino.error.ExpenseNotFoundException;
+import com.appspot.fherdelpino.expenses.error.ExpenseNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
