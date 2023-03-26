@@ -1,6 +1,7 @@
 package com.appspot.fherdelpino.security.configuration;
 
 
+import com.appspot.fherdelpino.security.filter.JwtAuthFilter;
 import com.appspot.fherdelpino.security.service.MongoAuthUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +27,7 @@ import static com.appspot.fherdelpino.security.controller.AuthenticationControll
 public class WebSecurityConfig {
 
     @Autowired
-    MongoAuthUserDetailsService mongoAuthUserDetailsService;
+    private MongoAuthUserDetailsService mongoAuthUserDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -35,6 +37,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/expenses/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         ).csrf().disable();
+        http.addFilterBefore(new JwtAuthFilter(mongoAuthUserDetailsService), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
@@ -51,6 +54,5 @@ public class WebSecurityConfig {
         Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put(idForEncode, new BCryptPasswordEncoder());
         return new DelegatingPasswordEncoder(idForEncode, encoders);
-
     }
 }
