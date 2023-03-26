@@ -22,13 +22,13 @@ import java.util.List;
 @RestController
 public class AuthenticationController {
 
+    public static final String AUTH_PATH = "/auth";
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    public static final String AUTH_PATH = "/auth";
 
     @Autowired
     private AuthenticationManager authenticationManager;
