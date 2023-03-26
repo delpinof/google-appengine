@@ -1,6 +1,6 @@
 package com.appspot.fherdelpino.security.controller;
 
-import com.appspot.fherdelpino.security.error.UserAlreadyExistException;
+import com.appspot.fherdelpino.security.error.UserConflictException;
 import com.appspot.fherdelpino.security.model.AuthenticationRequest;
 import com.appspot.fherdelpino.security.model.AuthenticationResponse;
 import com.appspot.fherdelpino.security.model.Role;
@@ -48,7 +48,7 @@ public class AuthenticationController {
     @ResponseBody
     public User signup(@RequestBody AuthenticationRequest request) {
         if (userRepository.existsById(request.getUserName())) {
-            throw new UserAlreadyExistException("User already exists");
+            throw new UserConflictException("User already exists");
         }
         return userRepository.save(User.builder()
                 .userName(request.getUserName())

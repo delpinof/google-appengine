@@ -1,7 +1,7 @@
 package com.appspot.fherdelpino.utils;
 
 import com.appspot.fherdelpino.expenses.error.ExpenseNotFoundException;
-import com.appspot.fherdelpino.security.error.UserAlreadyExistException;
+import com.appspot.fherdelpino.security.error.UserConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -17,7 +17,7 @@ public class AdviceController {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(UserAlreadyExistException.class)
+    @ExceptionHandler(UserConflictException.class)
     public void handleConflict() {
         //nothing to do
     }
