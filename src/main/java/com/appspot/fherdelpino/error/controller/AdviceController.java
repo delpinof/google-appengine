@@ -1,4 +1,4 @@
-package com.appspot.fherdelpino.expenses.controller;
+package com.appspot.fherdelpino.error.controller;
 
 import com.appspot.fherdelpino.expenses.error.ExpenseNotFoundException;
 import com.appspot.fherdelpino.security.error.UserAlreadyExistException;
