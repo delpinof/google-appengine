@@ -2,12 +2,15 @@ package com.appspot.fherdelpino.security.controller;
 
 import com.appspot.fherdelpino.security.error.UserAlreadyExistException;
 import com.appspot.fherdelpino.security.model.AuthenticationRequest;
+import com.appspot.fherdelpino.security.model.AuthenticationResponse;
 import com.appspot.fherdelpino.security.model.Role;
 import com.appspot.fherdelpino.security.model.User;
 import com.appspot.fherdelpino.security.repository.UserRepository;
+import com.appspot.fherdelpino.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,10 +35,13 @@ public class AuthenticationController {
 
     @PostMapping(AUTH_PATH)
     @ResponseBody
-    public String auth(@RequestBody AuthenticationRequest request) {
-
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
-        return "authorized";
+    public AuthenticationResponse auth(@RequestBody AuthenticationRequest request) {
+        var token = new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword());
+        Authentication authentication = authenticationManager.authenticate(token);
+        String jwt = JwtUtils.generateJwtToken(authentication);
+        return AuthenticationResponse.builder()
+                .jwt(jwt)
+                .build();
     }
 
     @PostMapping(AUTH_PATH + "/signup")
