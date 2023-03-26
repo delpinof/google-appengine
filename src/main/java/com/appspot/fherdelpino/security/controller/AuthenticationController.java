@@ -33,12 +33,15 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     @PostMapping(AUTH_PATH)
     @ResponseBody
     public AuthenticationResponse auth(@RequestBody AuthenticationRequest request) {
         var token = new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword());
         Authentication authentication = authenticationManager.authenticate(token);
-        String jwt = JwtUtils.generateJwtToken(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
         return AuthenticationResponse.builder()
                 .jwt(jwt)
                 .build();

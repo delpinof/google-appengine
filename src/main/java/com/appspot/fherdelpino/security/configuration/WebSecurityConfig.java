@@ -29,6 +29,9 @@ public class WebSecurityConfig {
     @Autowired
     private MongoAuthUserDetailsService mongoAuthUserDetailsService;
 
+    @Autowired
+    private JwtAuthFilter jwtAuthFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) -> authz
@@ -37,7 +40,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/expenses/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         ).csrf().disable();
-        http.addFilterBefore(new JwtAuthFilter(mongoAuthUserDetailsService), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
