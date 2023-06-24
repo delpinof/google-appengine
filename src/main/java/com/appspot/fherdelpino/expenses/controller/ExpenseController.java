@@ -33,6 +33,8 @@ public class ExpenseController {
     @PostMapping
     @ResponseBody
     public Expense createExpense(@RequestBody Expense expense) {
+        //Ignore id when is sent by POST
+        expense.setId(null);
         return expenseRepository.insert(expense);
     }
 
@@ -67,7 +69,7 @@ public class ExpenseController {
     @ResponseBody
     public Expense getExpense(@PathVariable String id) {
         return expenseRepository.findById(id)
-                .orElseThrow(() -> new ExpenseNotFoundException());
+                .orElseThrow(ExpenseNotFoundException::new);
     }
 
     @PutMapping("/{id}")
