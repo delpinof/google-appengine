@@ -34,10 +34,10 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authz) -> authz
+        http.authorizeHttpRequests(authz -> authz
                 .requestMatchers("/hello").permitAll()
                 .requestMatchers(AUTH_PATH + "/**").permitAll()
-                .requestMatchers("/expenses/**").hasRole("ADMIN")
+                .requestMatchers("/expense/**").hasAuthority("USER")
                 .anyRequest().authenticated()
         ).csrf().disable();
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
