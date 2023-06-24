@@ -26,8 +26,6 @@ import static com.appspot.fherdelpino.security.controller.AuthenticationControll
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    private static final String ID_FOR_ENCODE = "bcrypt";
-
     @Autowired
     private MongoAuthUserDetailsService mongoAuthUserDetailsService;
 
@@ -36,10 +34,10 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authz -> authz
+        http.authorizeHttpRequests((authz) -> authz
                 .requestMatchers("/hello").permitAll()
                 .requestMatchers(AUTH_PATH + "/**").permitAll()
-                .requestMatchers("/expenses/**").permitAll()//.hasRole("USER")
+                .requestMatchers("/expenses/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         ).csrf().disable();
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -55,8 +53,9 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        String idForEncode = "bcrypt";
         Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(ID_FOR_ENCODE, new BCryptPasswordEncoder());
-        return new DelegatingPasswordEncoder(ID_FOR_ENCODE, encoders);
+        encoders.put(idForEncode, new BCryptPasswordEncoder());
+        return new DelegatingPasswordEncoder(idForEncode, encoders);
     }
 }
