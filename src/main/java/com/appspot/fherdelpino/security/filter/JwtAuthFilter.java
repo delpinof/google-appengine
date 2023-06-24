@@ -39,7 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (isValid) {
                 String userName = jwtUtils.getUserName(jwt);
                 UserDetails userDetails = mongoAuthUserDetailsService.loadUserByUsername(userName);
-                var token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                var token = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities());
                 token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(token);
 
