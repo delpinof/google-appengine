@@ -14,6 +14,6 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=user
       - MONGO_INITDB_ROOT_PASSWORD=pass
     volumes:
-      - type: bind
-        source: ./data
-        target: /data/db
+      - mongodb:/data/db
+volumes:
+  mongodb:
