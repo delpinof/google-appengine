@@ -26,6 +26,8 @@ import static com.appspot.fherdelpino.security.controller.AuthenticationControll
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    private static final String ENCODE_ID = "bcrypt";
+
     @Autowired
     private MongoAuthUserDetailsService mongoAuthUserDetailsService;
 
@@ -53,9 +55,8 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        String idForEncode = "bcrypt";
         Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put(idForEncode, new BCryptPasswordEncoder());
-        return new DelegatingPasswordEncoder(idForEncode, encoders);
+        encoders.put(ENCODE_ID, new BCryptPasswordEncoder());
+        return new DelegatingPasswordEncoder(ENCODE_ID, encoders);
     }
 }
