@@ -3,3 +3,6 @@ spring:
     mongodb:
       uri: mongodb+srv://<user>:<password>@<host>/?retryWrites=true&w=majority
       database: <db>
+
+jwt:
+  secret: secret
