@@ -1,8 +1,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://<user>:<password>@<host>/?retryWrites=true&w=majority
-      database: <db>
+      uri: mongodb://localhost:27017
+      database: expensesDB
 
 jwt:
   secret: secret
