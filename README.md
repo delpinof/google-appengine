@@ -34,6 +34,14 @@ docker compose up
 
 ### GCP
 
+#### App engine
+
 ```bash
 gcloud app deploy --quiet
+```
+
+#### Cloud build
+
+```bash
+gcloud builds submit --region=us-central1
 ```

@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/hello").permitAll()
                 .requestMatchers(AUTH_PATH + "/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
-                .requestMatchers("/expense/**").hasAuthority("USER")
+                .requestMatchers("/expense/**").permitAll()//.hasAuthority("USER")
                 .anyRequest().authenticated()
         ).csrf().disable();
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
