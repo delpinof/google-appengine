@@ -7,7 +7,7 @@
 # documentation.
 
 name: Java CI with Maven
-run-name: ${{ github.actor }} - ${{ github.ref }} - ${{ github.sha }}
+run-name: ${{ github.actor }} - ${{ github.head_ref }} - ${{ github.sha }}
 on:
   pull_request:
     branches: [ "master" ]
