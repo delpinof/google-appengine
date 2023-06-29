@@ -8,7 +8,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2', '.' ]
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2', '.' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args: [ 'run', 'deploy', 'google-appengine', '--image',
