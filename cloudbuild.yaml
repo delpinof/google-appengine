@@ -4,6 +4,11 @@ steps:
       #!/usr/bin/env bash
       echo $$MONGODB_URI
     secretEnv: [ 'MONGODB_URI' ]
+  - name: 'ubuntu'
+    env:
+      - 'BAR=$$MONGODB_URI'
+    script: 'echo $BAR'
+    secretEnv: [ 'MONGODB_URI' ]
 availableSecrets:
   secretManager:
     - versionName: projects/826713720386/secrets/MONGODB_URI/versions/3
