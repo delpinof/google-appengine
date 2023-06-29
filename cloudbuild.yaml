@@ -7,9 +7,13 @@ steps:
     args: [ 'package','-Dmaven.test.skip=true' ]
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2', '.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2', '.' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args: [ '-c','gcloud run deploy google-appengine --image us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2 --set-env-vars SPRING_DATA_MONGODB_URI=$$MONGODB_URI' ]
+    entrypoint: 'gcloud'
+    args: [ 'run', 'deploy', 'google-appengine', '--image',
+            'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2',
+            '--set-env-vars', 'SPRING_DATA_MONGODB_URI=$$MONGODB_URI' ]
     secretEnv: [ 'MONGODB_URI' ]
     timeout: '1600s'
 images:
