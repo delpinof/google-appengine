@@ -25,5 +25,5 @@ images:
   - 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2'
 availableSecrets:
   secretManager:
-    - versionName: projects/826713720386/secrets/MONGODB_URI/versions/1
+    - versionName: projects/826713720386/secrets/MONGODB_URI/versions/3
       env: 'MONGODB_URI'
