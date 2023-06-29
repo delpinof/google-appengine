@@ -7,9 +7,14 @@ steps:
     args: [ 'package','-Dmaven.test.skip=true' ]
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag1', '.' ]
+    secretEnv: [ 'SPRING_DATA_MONGODB_URI' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args: [ '-c', 'gcloud config set app/cloud_build_timeout 1600 && gcloud app deploy' ]
+    timeout: '1600s'
 images:
   - 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag1'
-timeout: '1600s'
+availableSecrets:
+  secretManager:
+    - versionName: projects/826713720386/secrets/MONGODB_URI/versions/1
+      env: 'SPRING_DATA_MONGODB_URI'
