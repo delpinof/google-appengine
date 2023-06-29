@@ -6,7 +6,7 @@ steps:
     entrypoint: mvn
     args: [ 'package','-Dmaven.test.skip=true' ]
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag1', '.' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag2', '.' ]
     secretEnv: [ 'SPRING_DATA_MONGODB_URI' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
