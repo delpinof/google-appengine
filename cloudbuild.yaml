@@ -1,15 +1,13 @@
 steps:
   - name: 'bash'
-    script: |
-      #!/usr/bin/env bash
-      echo $$MONGODB_URI
+    args: [ 'echo', '$$MONGODB_URI' ]
     secretEnv: [ 'MONGODB_URI' ]
-  - name: 'ubuntu'
-    env:
-      - 'BAR=$$MONGODB_URI'
-    script: 'echo $BAR'
-    secretEnv: [ 'MONGODB_URI' ]
+  - name: 'bash'
+    args: [ 'echo', '$$MONGODB_URI2' ]
+    secretEnv: [ 'MONGODB_URI2' ]
 availableSecrets:
   secretManager:
-    - versionName: projects/fherdelpino/secrets/MONGODB_URI/versions/3
+    - versionName: projects/826713720386/secrets/MONGODB_URI/versions/3
       env: 'MONGODB_URI'
+    - versionName: projects/fherdelpino/secrets/MONGODB_URI/versions/3
+      env: 'MONGODB_URI2'
