@@ -20,6 +20,6 @@ public class GoogleAppengineApplication {
 
 	@Bean
 	ApplicationRunner applicationRunner(Environment environment) {
-		return args -> LOG.info("fhdpr | mongodburi={}", environment.getProperty("spring.data.mongodb.uri"));
+		return args -> LOG.info("fhdpr | mongoDbUri={}", environment.getProperty("spring.data.mongodb.uri"));
 	}
 }
