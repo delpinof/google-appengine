@@ -11,5 +11,5 @@ steps:
     secretEnv: [ 'MONGODB_URI' ]
 availableSecrets:
   secretManager:
-    - versionName: projects/826713720386/secrets/MONGODB_URI/versions/3
+    - versionName: projects/fherdelpino/secrets/MONGODB_URI/versions/3
       env: 'MONGODB_URI'
