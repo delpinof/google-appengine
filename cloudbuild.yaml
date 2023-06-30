@@ -9,10 +9,6 @@ steps:
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag3', '.' ]
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag3' ]
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: [ '-c', 'echo $$MONGODB_URI' ]
-    secretEnv: [ 'MONGODB_URI' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args: [ '-c', 'gcloud run deploy google-appengine --image us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag3 --region us-central1 --set-env-vars SPRING_DATA_MONGODB_URI=$$MONGODB_URI' ]
