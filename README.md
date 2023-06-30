@@ -30,6 +30,16 @@ docker volume create mongodb
 docker compose up
 ```
 
+## Optional build & run
+build docker image:
+```bash
+docker build -t fherdelpino/google-appengine .
+```
+run docker container:
+```bash
+docker run -p 8080:8080 -e SPRING_DATA_MONGODB_URI='mongodb://{mongodb_ip}:27017' --name google-appengine fherdelpino/google-appengine
+```
+
 ## Deploy
 
 ### GCP
