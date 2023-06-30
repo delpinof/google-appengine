@@ -31,6 +31,7 @@ docker compose up
 ```
 
 ## Optional build & run
+
 build docker image:
 ```bash
 docker build -t fherdelpino/google-appengine .
