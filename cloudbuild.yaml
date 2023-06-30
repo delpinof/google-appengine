@@ -1,0 +1,22 @@
+steps:
+  - name: maven:3.9.2-eclipse-temurin-17
+    entrypoint: mvn
+    args: [ 'test' ]
+  - name: maven:3.9.2-eclipse-temurin-17
+    entrypoint: mvn
+    args: [ 'package','-Dmaven.test.skip=true' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag3', '.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag3' ]
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args: [ '-c', 'gcloud run deploy google-appengine --image us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag3 --region us-central1 --set-env-vars SPRING_DATA_MONGODB_URI=$$MONGODB_URI' ]
+    secretEnv: [ 'MONGODB_URI' ]
+    timeout: '1600s'
+images:
+  - 'us-central1-docker.pkg.dev/fherdelpino/cloud-run-source-deploy/appengine-docker-img:tag3'
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/MONGODB_URI/versions/latest
+      env: 'MONGODB_URI'
