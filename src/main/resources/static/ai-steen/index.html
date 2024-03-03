@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic Discussion</title>
+    <style>
+        /* Basic CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        .topic {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .comment {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Topic Discussion</h1>
+        <div id="topicList"></div>
+        <input type="text" id="topicInput" placeholder="Enter a topic">
+        <button onclick="addTopic()">Add Topic</button>
+    </div>
+
+    <script>
+        // Array to store topics
+        let topics = [];
+
+        // Function to add a topic
+        function addTopic() {
+            const topicInput = document.getElementById("topicInput");
+            const topic = topicInput.value.trim();
+            if (topic !== "") {
+                topics.push({ name: topic, likes: 0, dislikes: 0, comments: [] });
+                topicInput.value = "";
+                renderTopics();
+            }
+        }
+
+        // Function to render topics
+        function renderTopics() {
+            const topicList = document.getElementById("topicList");
+            topicList.innerHTML = "";
+            topics.forEach((topic, index) => {
+                const topicDiv = document.createElement("div");
+                topicDiv.classList.add("topic");
+                topicDiv.innerHTML = `
+                    <h2>${topic.name}</h2>
+                    <button onclick="likeTopic(${index})">Like</button>
+                    <button onclick="dislikeTopic(${index})">Dislike</button>
+                    <p>Likes: ${topic.likes} | Dislikes: ${topic.dislikes}</p>
+                    <input type="text" id="commentInput${index}" placeholder="Add a comment">
+                    <button onclick="addComment(${index})">Comment</button>
+                    <div id="comments${index}"></div>
+                `;
+                topic.comments.forEach(comment => {
+                    const commentDiv = document.createElement("div");
+                    commentDiv.classList.add("comment");
+                    commentDiv.textContent = comment;
+                    topicDiv.querySelector(`#comments${index}`).appendChild(commentDiv);
+                });
+                topicList.appendChild(topicDiv);
+            });
+        }
+
+        // Function to like a topic
+        function likeTopic(index) {
+            topics[index].likes++;
+            renderTopics();
+        }
+
+        // Function to dislike a topic
+        function dislikeTopic(index) {
+            topics[index].dislikes++;
+            renderTopics();
+        }
+
+        // Function to add a comment
+        function addComment(index) {
+            const commentInput = document.getElementById(`commentInput${index}`);
+            const comment = commentInput.value.trim();
+            if (comment !== "") {
+                topics[index].comments.push(comment);
+                commentInput.value = "";
+                renderTopics();
+            }
+        }
+
+        // Initial rendering
+        renderTopics();
+    </script>
+</body>
+</html>
