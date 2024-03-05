@@ -16,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.appspot.fherdelpino.security.controller.AuthenticationController.AUTH_PATH;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +42,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/expense/**").permitAll()//.hasAuthority("USER")
                 .anyRequest().authenticated()*/
                 .anyRequest().permitAll()
-        ).csrf(csrf -> csrf.disable());
+        ).csrf().disable();
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
