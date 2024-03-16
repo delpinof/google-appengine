@@ -40,6 +40,12 @@ run docker container:
 ```bash
 docker run -p 8080:8080 -e SPRING_DATA_MONGODB_URI='mongodb://{mongodb_ip}:27017' --name google-appengine fherdelpino/google-appengine
 ```
+## Documentation
+
+Swagger documentation at:
+
+http://localhost:8080/swagger-ui/index.html
+
 
 ## Deploy
 
