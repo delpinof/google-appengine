@@ -54,7 +54,7 @@ http://localhost:8080/swagger-ui/index.html
 #### App engine
 
 ```bash
-gcloud app deploy --quiet
+gcloud app deploy --quiet --no-cache
 ```
 
 #### Cloud build
