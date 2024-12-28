@@ -1,0 +1,30 @@
+{
+  "id": "1",
+  "name": "Restaurant 1",
+  "branches": [
+    {
+      "id": "1",
+      "branchName": "Branch 1",
+      "address": {
+        "id": "1",
+        "street": "Street",
+        "streetNumber": "1",
+        "city": "City 1",
+        "state": "State 1",
+        "zipCode": "12345"
+      }
+    },
+    {
+      "id": "2",
+      "branchName": "Branch 2",
+      "address": {
+        "id": "2",
+        "street": "Street",
+        "streetNumber": "2",
+        "city": "City 2",
+        "state": "State 2",
+        "zipCode": "54321"
+      }
+    }
+  ]
+}
