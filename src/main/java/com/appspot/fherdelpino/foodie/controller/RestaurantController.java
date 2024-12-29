@@ -1,5 +1,6 @@
 package com.appspot.fherdelpino.foodie.controller;
 
+import com.appspot.fherdelpino.error.EntityNotFoundException;
 import com.appspot.fherdelpino.foodie.model.Restaurant;
 import com.appspot.fherdelpino.foodie.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,8 @@ public class RestaurantController {
     @GetMapping("/{id}")
     @ResponseBody
     public Restaurant getRestaurant(@PathVariable String id) {
-        return restaurantService.getRestaurant(id).orElse(null);
+        return restaurantService.getRestaurant(id)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @PostMapping

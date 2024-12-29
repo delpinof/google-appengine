@@ -1,6 +1,5 @@
-package com.appspot.fherdelpino.utils;
+package com.appspot.fherdelpino.error;
 
-import com.appspot.fherdelpino.expenses.error.ExpenseNotFoundException;
 import com.appspot.fherdelpino.security.error.UserConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class AdviceController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(ExpenseNotFoundException.class)
-    public void handleNotFound() {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public void handleEntityNotFound() {
         //nothing to do
     }
 

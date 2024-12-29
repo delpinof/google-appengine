@@ -1,6 +1,6 @@
 package com.appspot.fherdelpino.expenses.controller;
 
-import com.appspot.fherdelpino.expenses.error.ExpenseNotFoundException;
+import com.appspot.fherdelpino.error.EntityNotFoundException;
 import com.appspot.fherdelpino.expenses.model.Expense;
 import com.appspot.fherdelpino.expenses.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,7 @@ public class ExpenseController {
                 .ifPresentOrElse(
                         expense -> expenseRepository.deleteById(expense.getId()),
                         () -> {
-                            throw new ExpenseNotFoundException();
+                            throw new EntityNotFoundException();
                         }
                 );
     }
@@ -69,7 +69,7 @@ public class ExpenseController {
     @ResponseBody
     public Expense getExpense(@PathVariable String id) {
         return expenseRepository.findById(id)
-                .orElseThrow(ExpenseNotFoundException::new);
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @PutMapping("/{id}")
@@ -81,6 +81,6 @@ public class ExpenseController {
                     return newExpense;
                 })
                 .map(expense -> expenseRepository.save(expense))
-                .orElseThrow(ExpenseNotFoundException::new);
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
