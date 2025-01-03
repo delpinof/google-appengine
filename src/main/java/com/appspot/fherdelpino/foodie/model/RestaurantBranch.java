@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document("restaurant-branch")
 @Data
 @Builder
@@ -13,4 +15,6 @@ public class RestaurantBranch {
     private String id;
     private String branchName;
     private RestaurantAddress address;
+    private String phoneNumber;
+    private List<String> webSites;
 }

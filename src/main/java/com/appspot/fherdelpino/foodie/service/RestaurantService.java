@@ -20,4 +20,14 @@ public class RestaurantService {
     public Optional<Restaurant> getRestaurant(String id) {
         return restaurantRepository.findById(id);
     }
+
+    public void deleteRestaurant(String id) {
+        restaurantRepository.deleteById(id);
+    }
+
+    public Restaurant updateRestaurant(String id, Restaurant restaurant) {
+        restaurant.setId(id);
+        restaurantRepository.save(restaurant);
+        return restaurant;
+    }
 }
