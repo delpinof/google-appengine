@@ -39,6 +39,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(authz -> authz
                 .requestMatchers("/hello").permitAll()
                 .requestMatchers("/ai-steen/**").permitAll()
+                .requestMatchers("/react/**").permitAll()
                 .requestMatchers(AUTH_PATH + "/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
                 .requestMatchers("/expense/**").permitAll()//.hasAuthority("USER")

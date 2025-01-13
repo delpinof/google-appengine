@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React simple</title>
+</head>
+<body>
+<h1>Hello World!</h1>
+<div id="like-button-root"></div>
+<div id="another-root"></div>
+<div id="app"></div>
+
+<script
+        src="https://unpkg.com/react@18/umd/react.development.js"
+        crossorigin
+></script>
+<script
+        src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+        crossorigin
+></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="like-button.js"></script>
+<script type="text/jsx">
+    //this only works with babel
+    const domNode = document.getElementById('app');
+    const appRoot = ReactDOM.createRoot(domNode);
+
+    function Header({title}) {
+        return <h1>{title}</h1>;
+    }
+
+    function HomePage() {
+
+        const [likes, setLikes] = React.useState(0);
+
+        const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+
+        function handleClick() {
+            setLikes(likes+1);
+            console.log('increment like count' , likes);
+        }
+
+        return <div>
+            <Header title="Develop."/>
+            <Header title="Preview."/>
+            <Header title="Ship."/>
+            <ul>
+                {names.map((name) => (
+                    <li key={name}>{name}</li>
+                ))}
+            </ul>
+            <button onClick={handleClick}>Like {likes}</button>
+        </div>;
+    }
+
+    appRoot.render(<HomePage/>);
+</script>
+</body>
+</html>
