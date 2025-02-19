@@ -1,6 +1,10 @@
 {
   "id": "1",
   "name": "Restaurant 1",
+  "webSites": [
+    "www.restaurant1.com",
+    "www.restaurant1.org"
+  ],
   "branches": [
     {
       "id": "1",
@@ -12,7 +16,12 @@
         "city": "City 1",
         "state": "State 1",
         "zipCode": "12345"
-      }
+      },
+      "phoneNumber": "1234567890",
+      "webSites": [
+        "www.branch1.com",
+        "www.branch1.org"
+      ]
     },
     {
       "id": "2",
@@ -24,7 +33,12 @@
         "city": "City 2",
         "state": "State 2",
         "zipCode": "54321"
-      }
+      },
+      "phoneNumber": "1234567890",
+      "webSites": [
+        "www.branch2.com",
+        "www.branch2.org"
+      ]
     }
   ]
 }
