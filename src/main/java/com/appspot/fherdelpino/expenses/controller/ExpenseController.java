@@ -49,9 +49,20 @@ public class ExpenseController {
 
     @GetMapping
     @ResponseBody
-    public List<Expense> getByDates(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
-                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
-        return expenseRepository.findByDates(from, to);
+    public List<Expense> get(
+            @RequestParam(required = false) Optional<String> sortBy,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
+
+        if (from != null || to != null) {
+            return expenseRepository.findByDates(from, to);
+        }
+
+        return sortBy
+                .map(Sort::by)
+                .map(sortByField -> expenseRepository.findAll(sortByField))
+                .orElse(expenseRepository.findAll());
+
     }
 
     @DeleteMapping("/{id}")
