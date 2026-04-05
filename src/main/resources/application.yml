@@ -1,8 +1,7 @@
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017
-      database: expensesDB
+  mongodb:
+    uri: ${MONGODB_URI}
+    database: ${MONGODB_NAME}
 
 jwt:
-  secret: secret
+  secret: ${JWT_SECRET}

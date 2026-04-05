@@ -10,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,15 +38,18 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(AbstractHttpConfigurer::disable);
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(authz -> authz
                 .requestMatchers("/hello").permitAll()
                 .requestMatchers("/ai-steen/**").permitAll()
+                .requestMatchers(AUTH_PATH).permitAll()
                 .requestMatchers(AUTH_PATH + "/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
                 .requestMatchers("/expense/**").permitAll()//.hasAuthority("USER")
                 .requestMatchers("/restaurant/**").permitAll()//.hasAuthority("USER")
                 .anyRequest().authenticated()
-        ).csrf().disable();
+        );
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

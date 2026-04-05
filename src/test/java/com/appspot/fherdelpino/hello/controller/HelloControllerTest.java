@@ -1,10 +1,12 @@
 package com.appspot.fherdelpino.hello.controller;
 
+import com.appspot.fherdelpino.security.configuration.WebSecurityConfig;
+import com.appspot.fherdelpino.security.filter.JwtAuthFilter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
@@ -13,10 +15,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = HelloController.class,
-        excludeAutoConfiguration = SecurityAutoConfiguration.class,
-        useDefaultFilters = false)
-@Import(HelloController.class)
+@WebMvcTest(value = HelloController.class, excludeFilters = {
+        @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WebSecurityConfig.class),
+        @Filter(type = FilterType.ASSIGNABLE_TYPE, classes = JwtAuthFilter.class)
+})
 public class HelloControllerTest {
 
     @Autowired

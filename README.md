@@ -24,6 +24,20 @@ docker run --name mongodb -p 27017:27017 -v mongodb:/data/db mongodb/mongodb-com
 
 - You can run directly from Intellij once mongodb is up.
 - Or use docker compose:
+- For local development, set these environment variables before starting the app:
+
+- `MONGODB_URI`
+- `MONGODB_NAME`
+- `JWT_SECRET`
+
+Example:
+
+```bash
+export MONGODB_URI='mongodb://localhost:27017'
+export MONGODB_NAME='google-appengine'
+export JWT_SECRET='replace-with-a-local-secret'
+./mvnw spring-boot:run
+```
 
 ```bash
 docker volume create mongodb
@@ -53,12 +67,15 @@ http://localhost:8080/swagger-ui/index.html
 
 #### App engine
 
+Before deploying, update [`app.yaml`](/Users/fherdelpino/workspaces/personal/google-appengine/app.yaml) with the real
+values for:
+
+- `MONGODB_URI`
+- `MONGODB_NAME`
+- `JWT_SECRET`
+
+`gcloud app deploy` automatically picks up `app.yaml` from the project root.
+
 ```bash
 gcloud app deploy --quiet --no-cache
-```
-
-#### Cloud build
-
-```bash
-gcloud builds submit --region=us-central1
 ```

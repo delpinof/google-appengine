@@ -1,0 +1,7 @@
+spring:
+  mongodb:
+    uri: mongodb://localhost:27017/test
+    database: test-db
+
+jwt:
+  secret: test-secret

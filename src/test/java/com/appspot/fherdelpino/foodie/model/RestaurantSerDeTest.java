@@ -1,30 +1,28 @@
 package com.appspot.fherdelpino.foodie.model;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
 @Slf4j
 class RestaurantSerDeTest {
     private static String restaurantPayload;
 
     private static Restaurant restaurantObject;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private static ObjectMapper objectMapper;
 
     @BeforeAll
     public static void setUp() throws IOException {
+        objectMapper = JsonMapper.builder().build();
         byte[] allBytes = RestaurantSerDeTest.class.getClassLoader().getResourceAsStream("payloads/restaurant/restaurant_payload1.json").readAllBytes();
         restaurantPayload = new String(allBytes);
         restaurantObject = Restaurant.builder().id("1")
