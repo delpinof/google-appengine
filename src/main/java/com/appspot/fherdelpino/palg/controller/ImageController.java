@@ -35,7 +35,6 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -153,15 +152,7 @@ public class ImageController {
             throw new IllegalArgumentException("Invalid file");
         }
 
-        String ext = filename.substring(filename.lastIndexOf(".")).toLowerCase();
-
-        Set<String> allowed = Set.of(".jpg", ".png", ".webp");
-
-        if (!allowed.contains(ext)) {
-            throw new IllegalArgumentException("Invalid file type");
-        }
-
-        return ext;
+        return filename.substring(filename.lastIndexOf(".")).toLowerCase();
     }
 
     private String generatePresignedUrl(String key, String contentType) {
