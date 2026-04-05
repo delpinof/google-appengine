@@ -1,0 +1,6 @@
+runtime: java21
+
+env_variables:
+  MONGODB_URI: "replace-with-your-mongodb-uri"
+  MONGODB_NAME: "replace-with-your-mongodb-database"
+  JWT_SECRET: "replace-with-your-jwt-secret"
