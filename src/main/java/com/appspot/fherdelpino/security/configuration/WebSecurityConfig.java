@@ -18,7 +18,6 @@ public class WebSecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
                         .requestMatchers("/expense/**").permitAll()//.hasAuthority("USER")
                         .requestMatchers("/restaurant/**").permitAll()//.hasAuthority("USER")
-                        .requestMatchers("/me").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(login -> login
