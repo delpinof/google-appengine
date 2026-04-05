@@ -23,7 +23,6 @@ class RestaurantSerDeTest {
     @BeforeAll
     public static void setUp() throws IOException {
         objectMapper = JsonMapper.builder().build();
-        ;
         byte[] allBytes = RestaurantSerDeTest.class.getClassLoader().getResourceAsStream("payloads/restaurant/restaurant_payload1.json").readAllBytes();
         restaurantPayload = new String(allBytes);
         restaurantObject = Restaurant.builder().id("1")
