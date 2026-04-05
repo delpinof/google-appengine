@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <meta name="access_token" th:content="${accessToken}">
+    <title>Your Images</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow">Media Storage Service</p>
+            <h1>Your uploaded images</h1>
+            <p class="subtitle">
+                Signed in as <strong th:text="${userName}">User</strong>. This gallery shows the images available for
+                your tenant.
+            </p>
+        </div>
+        <div class="actions">
+            <a class="button" th:href="@{/}">Home</a>
+            <a class="button primary" th:href="@{/logout}">Log out</a>
+        </div>
+    </section>
+
+    <div class="stack">
+        <section class="panel">
+            <div class="meta">
+                <span th:text="'Tenant: ' + ${tenantId}">Tenant: tenant-id</span>
+                <span id="image-count" th:text="'Images: ' + ${#lists.size(images)}">Images: 0</span>
+            </div>
+
+            <div class="toolbar">
+                <label class="upload-picker" for="file-input">
+                    <span class="upload-picker__badge">Image</span>
+                    <span class="upload-picker__title">Choose a file to upload</span>
+                    <span id="file-selection" class="upload-picker__meta">JPG, PNG or WEBP</span>
+                </label>
+                <input id="file-input" class="upload-picker__input" type="file"
+                       accept=".jpg,.png,.webp,image/jpeg,image/png,image/webp">
+                <button id="upload-button" class="button primary upload-button" type="button">Upload image</button>
+                <span id="status" class="status" aria-live="polite"></span>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div id="empty-state" class="empty" th:hidden="${!#lists.isEmpty(images)}">
+                No images uploaded yet for this tenant.
+            </div>
+
+            <div id="image-grid" class="grid" th:hidden="${#lists.isEmpty(images)}">
+                <article class="card" th:each="image : ${images}" th:attr="data-image-id=${image.id}">
+                    <img class="thumb" th:src="${image.url}" th:alt="${image.fileName}">
+                    <div class="card-body">
+                        <p class="file-name" th:text="${image.fileName}">file.jpg</p>
+                        <p class="type" th:text="${image.contentType}">image/jpeg</p>
+                        <div class="card-actions">
+                            <a class="button" th:href="${image.url}" target="_blank" rel="noreferrer">Open</a>
+                            <button class="delete-button" type="button" th:attr="data-image-id=${image.id}">Delete
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+</main>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

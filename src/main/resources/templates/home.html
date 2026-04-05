@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Media Storage Service</title>
+</head>
+<body>
+<main>
+    <h1>Media Storage Service</h1>
+
+    <section sec:authorize="isAuthenticated()">
+        <p>
+            Signed in as <strong th:text="${#authentication.name}">user</strong>
+        </p>
+        <p>
+            <a th:href="@{/app}">Open your images</a>
+        </p>
+        <p>
+            <a th:href="@{/logout}">Log out</a>
+        </p>
+    </section>
+
+    <section sec:authorize="isAnonymous()">
+        <p>
+            <a th:href="@{/oauth2/authorization/cognito}">Log in with Cognito</a>
+        </p>
+    </section>
+</main>
+</body>
+</html>

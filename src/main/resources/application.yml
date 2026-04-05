@@ -1,7 +1,48 @@
 spring:
+  application:
+    name: google-appengine
   mongodb:
     uri: ${MONGODB_URI}
     database: ${MONGODB_NAME}
+  security:
+    oauth2:
+      client:
+        provider:
+          cognito:
+            issuer-uri: ${COGNITO_ISSUER_URI}
+        registration:
+          cognito:
+            provider: cognito
+            client-id: ${COGNITO_CLIENT_ID}
+            client-authentication-method: none
+            authorization-grant-type: authorization_code
+            scope:
+              - openid
+              - profile
+              - email
+      resourceserver:
+        jwt:
+          issuer-uri: ${COGNITO_ISSUER_URI}
+
+server:
+  forward-headers-strategy: framework
 
 jwt:
   secret: ${JWT_SECRET}
+
+logging:
+  level:
+    org.springframework.security: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  mongodb:
+    uri: mongodb://localhost:27017/
+    database: devdb
+
+logging:
+  level:
+    org.springframework.security: DEBUG
