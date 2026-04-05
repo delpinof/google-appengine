@@ -1,6 +1,11 @@
 runtime: java21
 
 env_variables:
-  MONGODB_URI: "replace-with-your-mongodb-uri"
-  MONGODB_NAME: "replace-with-your-mongodb-database"
-  JWT_SECRET: "replace-with-your-jwt-secret"
+  MONGODB_URI: "mongodburi"
+  MONGODB_NAME: "mongodbname"
+  JWT_SECRET: "jwtsecret"
+  COGNITO_ISSUER_URI: "cognitouri"
+  COGNITO_CLIENT_ID: "cognitoclient"
+  AWS_ACCESS_KEY_ID: "awskey"
+  AWS_SECRET_ACCESS_KEY: "awssecret"
+  AWS_REGION: "awsregion"
