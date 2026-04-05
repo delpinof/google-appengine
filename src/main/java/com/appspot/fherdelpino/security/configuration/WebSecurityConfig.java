@@ -44,7 +44,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/expense/**").permitAll()//.hasAuthority("USER")
                 .requestMatchers("/restaurant/**").permitAll()//.hasAuthority("USER")
                 .anyRequest().authenticated()
-        ).csrf().disable();
+        );
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
